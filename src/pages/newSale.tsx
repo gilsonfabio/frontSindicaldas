@@ -23,7 +23,7 @@ const NewSale = () => {
                 const resp = await api.get(`gerSaldo/${cartao}`);
               }
               Router.push({
-                pathname: '/CnfLancamento',
+                pathname: '/cnfLancamento',
                 query: { convenio: `${idCnv}`, nomFantasia: `${nomConvenio}`, nroCartao: `${cartao}`}
               })
           } catch (err) {
@@ -36,7 +36,7 @@ const NewSale = () => {
               const resp = await api.get(`gerSaldo/${cartao}`);
             }
             Router.push({
-              pathname: '/CnfLancamento',
+              pathname: '/cnfLancamento',
               query: { convenio: `${idCnv}`, nomFantasia: `${nomConvenio}`, nroCartao: `${cartao}`}
             })
           } catch (err) {

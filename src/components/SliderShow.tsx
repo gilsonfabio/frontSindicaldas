@@ -6,11 +6,11 @@ import "react-slideshow-image/dist/styles.css";
 const Slideshow = () => {
 	//Array of Images
 	const images = [
-        "http://localhost:3000/images/image01.jpg", 
-        "http://localhost:3000/images/image02.jpg", 
-        "http://localhost:3000/images/image03.jpg", 
-        "http://localhost:3000/images/image04.jpg", 
-        "http://localhost:3000/images/image05.jpg", 
+        "https://frontsindicaldas-l33s.vercel.app/images/image01.jpg", 
+        "https://frontsindicaldas-l33s.vercel.app/images/image02.jpg", 
+        "https://frontsindicaldas-l33s.vercel.app/images/image03.jpg", 
+        "https://frontsindicaldas-l33s.vercel.app/images/image04.jpg", 
+        "https://frontsindicaldas-l33s.vercel.app/images/image05.jpg", 
     ];
     
 	//These are custom properties for zoom effect while slide-show
