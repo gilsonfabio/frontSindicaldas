@@ -46,7 +46,9 @@ const CnfLancamento = () => {
     async function handleCnfLanc(e: any){
       e.preventDefault();
       try {
-          let cartao = idCrt;
+          let cartao = router.query.nroCartao;
+          console.log(cartao);
+          console.log(password);
           const response = await api.get(`loginUsr/${cartao}/${password}`);
           //console.log(parseFloat(saldo));
           //console.log(parseFloat(vlrCompra));
@@ -198,6 +200,15 @@ const CnfLancamento = () => {
                             <option value={1}>{'PARCELA ÚNICA'}</option>
                             <option value={2}>{'2 X PARCELAS'}</option>
                             <option value={3}>{'3 X PARCELAS'}</option>
+                            <option value={4}>{'4 X PARCELAS'}</option>
+                            <option value={5}>{'5 X PARCELAS'}</option>
+                            <option value={6}>{'6 X PARCELAS'}</option>
+                            <option value={7}>{'7 X PARCELAS'}</option>
+                            <option value={8}>{'8 X PARCELAS'}</option>
+                            <option value={9}>{'9 X PARCELAS'}</option>
+                            <option value={10}>{'10 X PARCELAS'}</option>
+                            <option value={11}>{'11 X PARCELAS'}</option>
+                            <option value={12}>{'12 X PARCELAS'}</option>
                         </select> 
                       </div>         
                       <div className='mb-4'>
