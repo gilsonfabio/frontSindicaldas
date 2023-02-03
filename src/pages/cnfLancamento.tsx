@@ -16,8 +16,9 @@ interface userProps {
   usrMes: number;
   usrAno: number;
   usrVlrDisponivel: number;
+  usrStatus: string;
 }
-
+1234
 const CnfLancamento = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -137,7 +138,7 @@ const CnfLancamento = () => {
                       {user.map((row) => (
                         <div key={row.usrId}>
                           <div className='dados mb-4'>
-                            Nome:{row.usrNome} 
+                            Nome:{row.usrNome} # Status:{row.usrStatus}
                           </div>
                           <div className='dados mb-4'>
                             Matricula:{row.usrMatricula} 
