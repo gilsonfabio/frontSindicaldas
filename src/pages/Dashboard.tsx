@@ -74,7 +74,7 @@ const Dashboard = () => {
       <div className="mb-3">
             <div className="flex flex-row justify-center items-center ">
                 <span className="flex flex-row justify-center items-center text-3xl font-bold text-green-600 mt-6 mb-6" >
-                    Vendas do dia {idCnv}
+                    Vendas do dia 
                 </span>
                 
             </div>
