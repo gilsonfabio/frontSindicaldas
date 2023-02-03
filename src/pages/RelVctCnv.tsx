@@ -49,7 +49,7 @@ const RelEmiCnv = () => {
             bold: true,
             margin: [15, 20, 0, 45],
         }       
-    ];
+    ] as any;
 
     const dados = vendas.map((venda) => {
         return [
@@ -91,7 +91,7 @@ const RelEmiCnv = () => {
                     {text: 'Página: ' + currentPage + ' / ' + pageCount, alignment: 'right', fontSize: 10, margin: [0,0,20,0] }
                 ],
             },                    
-        ]
+        ] as any;
     };
 
     const docDefinition: TDocumentDefinitions  = {

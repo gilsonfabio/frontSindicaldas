@@ -18,7 +18,7 @@ interface userProps {
   usrVlrDisponivel: number;
 }
 
-const cnfLancamento = () => {
+const CnfLancamento = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [vlrCompra, setVlrCompra] = useState('');
@@ -113,10 +113,10 @@ const cnfLancamento = () => {
       api.get(`findUser/${cartao}`).then(resp => {
           console.log(resp.data)
           setUser(resp.data);
-          setServidor(resp.data[0].usrId);
-          setSaldo(resp.data[0].usrVlrDisponivel);
-          setStatusUsr(resp.data[0].usrStatus);
-          setMaxParc(resp.data[0].tipParcelas);
+          setServidor(resp.data.usrId);
+          setSaldo(resp.data.usrVlrDisponivel);
+          setStatusUsr(resp.data.usrStatus);
+          setMaxParc(resp.data.tipParcelas);
       })
     },[]);
 
@@ -221,4 +221,4 @@ const cnfLancamento = () => {
     </section>
     );
 };
-export default cnfLancamento;
+export default CnfLancamento;

@@ -3,7 +3,7 @@ import Router, { useRouter } from "next/router";
 
 import api from './api/api';
 
-const newSale = () => {
+const NewSale = () => {
     const [cartao, setCartao] = useState('');
        
     const router = useRouter();
@@ -23,7 +23,7 @@ const newSale = () => {
                 const resp = await api.get(`gerSaldo/${cartao}`);
               }
               Router.push({
-                pathname: '/cnflancamento',
+                pathname: '/Cnflancamento',
                 query: { convenio: `${idCnv}`, nomFantasia: `${nomConvenio}`, nroCartao: `${cartao}`}
               })
           } catch (err) {
@@ -36,7 +36,7 @@ const newSale = () => {
               const resp = await api.get(`gerSaldo/${cartao}`);
             }
             Router.push({
-              pathname: '/cnfLancamento',
+              pathname: '/CnfLancamento',
               query: { convenio: `${idCnv}`, nomFantasia: `${nomConvenio}`, nroCartao: `${cartao}`}
             })
           } catch (err) {
@@ -93,4 +93,4 @@ const newSale = () => {
     </section>
     );
 };
-export default newSale;
+export default NewSale;
