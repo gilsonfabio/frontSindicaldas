@@ -17,6 +17,9 @@ interface userProps {
   usrAno: number;
   usrVlrDisponivel: number;
   usrStatus: string;
+  tipId: number;
+  tipDescricao: string;
+  tipParcelas: number;
 }
 1234
 const CnfLancamento = () => {
@@ -25,11 +28,12 @@ const CnfLancamento = () => {
     const [vlrCompra, setVlrCompra] = useState('');
     const [qtdParcelas, setQtdParcelas] = useState('');
     const [user, setUser] = useState<Array<userProps>>([]);
-    const [servidor, setServidor] = useState();
+    const [servidor, setServidor] = useState('');
     const [cmpCartao, setCmpCartao] = useState('');
 
     const [saldo, setSaldo] = useState('');
-    const [statusUsr, setStatusUsr] = useState();
+    const [statusUsr, setStatusUsr] = useState('');
+    const [contrato, setContrato] = useState('');
     const [maxParc, setMaxParc] = useState('');
 
     const router = useRouter();
@@ -112,12 +116,13 @@ const CnfLancamento = () => {
       
       let cartao = idCrt;        
       api.get(`findUser/${cartao}`).then(resp => {
-          console.log(resp.data)
+          //console.log(resp.data)
           setUser(resp.data);
-          setServidor(resp.data.usrId);
-          setSaldo(resp.data.usrVlrDisponivel);
-          setStatusUsr(resp.data.usrStatus);
-          setMaxParc(resp.data.tipParcelas);
+          setServidor(resp.data[0].usrId);
+          setSaldo(resp.data[0].usrVlrDisponivel);
+          setStatusUsr(resp.data[0].usrStatus);
+          setMaxParc(resp.data[0].tipParcelas);
+          setContrato(resp.data[0].tipDescricao);
       })
     },[]);
 
@@ -138,10 +143,13 @@ const CnfLancamento = () => {
                       {user.map((row) => (
                         <div key={row.usrId}>
                           <div className='dados mb-4'>
-                            Nome:{row.usrNome} # Status:{row.usrStatus}
+                            Nome:{row.usrNome} 
                           </div>
                           <div className='dados mb-4'>
                             Matricula:{row.usrMatricula} 
+                          </div>
+                          <div className='dados mb-4'>
+                            Contrato:{row.tipDescricao} - {row.usrStatus} 
                           </div>
                           <div className='dados mb-4'>
                             Mes/Ano Saldo:{row.usrMes} / {row.usrAno} 
