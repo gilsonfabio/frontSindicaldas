@@ -52,10 +52,10 @@ const Slideshow = () => {
 						    className="w-full h-[800px] object-cover shadow-xl"
 						    src={each}
 					    />
-						<span className="font-serif flex flex-auto absolute text-white text-4xl md:text-6xl mt-28 md:ml-32 items-center p-2 md:items-start justify-start">
+						<span className="font-serif flex flex-auto absolute text-white text-3xl md:text-6xl mt-28 md:ml-32 items-center p-2 md:items-start justify-start">
 							ASSOCIAÇÃO CULTURAL, ESPORTIVA E SOCIAL 
 						</span>
-						<span className="font-serif flex flex-auto absolute text-white text-4xl md:text-6xl mt-56 md:mt-48 md:ml-32 items-center p-2 md:items-start justify-start">
+						<span className="font-serif flex flex-auto absolute text-white text-3xl md:text-6xl mt-56 md:mt-48 md:ml-32 items-center p-2 md:items-start justify-start">
 							DOS SERVIDORES PÚBLICOS MUNICIPAIS DE CALDAS NOVAS
 						</span>
 				    </div>
