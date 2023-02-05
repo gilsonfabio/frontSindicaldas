@@ -53,7 +53,8 @@ const CnfLancamento = () => {
           //console.log(parseFloat(saldo));
           //console.log(parseFloat(vlrCompra));
           //console.log(statusUsr);
-
+          console.log(response.data);
+          
           if (parseFloat(saldo) < parseFloat(vlrCompra) ) {
               alert('Falha na confirmação da compra! Codigo 55');
               Router.push({pathname: '/Dashboard'})
