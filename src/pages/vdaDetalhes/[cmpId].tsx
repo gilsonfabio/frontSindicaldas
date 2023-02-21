@@ -90,7 +90,7 @@ const VdaDetalhes = () => {
                       <div className="flex flex-row items-start justify-between px-2 py-0 ">
                         <div className="flex flex-col items-start px-2 py-1">
                           <span className='text-[12px] font-bold'>Dt. Venda</span>
-                          <div className="text-[12px] mb-0">{item.cmpEmissao}</div>
+                          <div className="text-[12px] mb-0">{Intl.DateTimeFormat('pt-BR', {timeZone: 'UTC'}).format(Date.parse(item.cmpEmissao))}</div>
                         </div>
                         <div className="flex flex-col items-start px-2 py-1">
                           <span className='text-[12px] font-bold'>Hr. Venda</span>
@@ -130,7 +130,7 @@ const VdaDetalhes = () => {
                       <div className="flex flex-row items-start justify-between px-2 py-0 ">
                         <div className="flex flex-col items-start px-2 py-1">
                           <span className='text-[12px] font-bold'>Dt. Vencto</span>
-                          <div className="text-[12px] mb-0">{item.parVctParcela }</div>
+                          <div className="text-[12px] mb-0">{Intl.DateTimeFormat('pt-BR', {timeZone: 'UTC'}).format(Date.parse(item.parVctParcela))}</div>
                         </div>
                         <div className="flex flex-col items-start px-2 py-1">
                           <span className='text-[12px] font-bold'>Vlr. Parcela</span>
