@@ -24,7 +24,9 @@ interface vendasProps {
 
 const Dashserv = () => {
     const [vendas, setVendas] = useState<Array<vendasProps>>([]);
-    
+    const [auxInicial, setAuxInicial] = useState('');
+    const [auxFinal, setAuxFinal] = useState('');
+
     const router = useRouter();
     const [idSrv, setIdVenda] = useState(router.query.id);
     const [name, setName] = useState(router.query.name);
@@ -38,29 +40,22 @@ const Dashserv = () => {
       })    
     }, [])
 
-    function handleNewSale() {
-      Router.push({
-        pathname: '/newSale',
-        query: { id: `${idSrv}`, nome: `${name}`}
-      })
-    }
-
     function handleEmissao() {
-      let dataIni = '2023-02-02';
-      let dataFin = '2023-02-02';
+      let dataIni = auxInicial.substring(6,10) + '-' + auxInicial.substring(3,5) + '-' + auxInicial.substring(0,2);
+      let dataFin = auxFinal.substring(6,10) + '-' + auxFinal.substring(3,5) + '-' + auxFinal.substring(0,2);
 
       Router.push({
-        pathname: '/RelEmiCnv',
+        pathname: '/RelEmiSer',
         query: { id: `${idSrv}`, datIni: `${dataIni}`, datFin: `${dataFin}`}
       })
     }
 
     function handleVencto() {
-      let dataIni = '2023-03-15';
-      let dataFin = '2023-03-15';
+      let dataIni = auxInicial.substring(6,10) + '-' + auxInicial.substring(3,5) + '-' + auxInicial.substring(0,2);
+      let dataFin = auxFinal.substring(6,10) + '-' + auxFinal.substring(3,5) + '-' + auxFinal.substring(0,2);
 
       Router.push({
-        pathname: '/RelVctCnv',
+        pathname: '/RelVctSer',
         query: { id: `${idSrv}`, datIni: `${dataIni}`, datFin: `${dataFin}`}
       })
     }
@@ -116,22 +111,64 @@ const Dashserv = () => {
         </div>
       </div>
       <div className="p-2 grid grid-cols-1 gap-1 md:grid-cols-3 md:gap-2 mt-6">  
-        <button onClick={handleEmissao} >
-          <div className="flex items-center justify-center h-24 rounded overflow-hidden shadow-2xl mb-5 " > 
+      <div className="bg-white flex flex-col h-auto rounded overflow-hidden shadow-2xl mb-5 " >        
+          <div className="flex flex-col items-center justify-center mb-5 " > 
             <p className="text-gray-700 text-2xl font-bold">
-              Compras p/ Emissão
+              Vendas p/ Emissão
             </p>
-          </div>          
-        </button>
-        <button onClick={handleVencto} >
-          <a>            
-            <div className="flex items-center justify-center h-24 rounded overflow-hidden shadow-2xl mb-5 " > 
-              <p className="text-gray-700 text-2xl font-bold">
-                Compras p/ Vencto
-              </p>
-            </div>
-          </a>
-        </button> 
+          </div>  
+          <div className='flex flex-row items-center justify-between ml-3 mr-3' >
+            <input
+              type='text'
+              className='px-3 py-1.5 text-base font-normal text-gray-800 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+              placeholder='data Inicial'
+              name='auxInicial'
+              value={auxInicial} 
+              onChange={(e) => {setAuxInicial(e.target.value)}} 
+            />
+            <input
+              type='text'
+              className='px-3 py-1.5 text-base font-normal text-gray-800 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+              placeholder='data Final'
+              name='auxFinal'
+              value={auxFinal} 
+              onChange={(e) => {setAuxFinal(e.target.value)}} 
+            />
+          </div>
+          <button onClick={handleEmissao} 
+            className='ml-3 mt-5 mb-3 mr-3 inline-block px-6 py-2 border-2 border-green-600 text-green-600 hover:border-white hover:text-white font-medium text-xs leading-tight uppercase rounded-full hover:bg-green-600 '>        
+            Gerar Relatório
+          </button>
+        </div>
+        <div className="bg-white flex flex-col h-auto rounded overflow-hidden shadow-2xl mb-5 " >        
+          <div className="flex flex-col items-center justify-center mb-5 " > 
+            <p className="text-gray-700 text-2xl font-bold">
+              Vendas p/ Vencimento
+            </p>
+          </div>  
+          <div className='flex flex-row items-center justify-between ml-3 mr-3' >
+            <input
+              type='text'
+              className='px-3 py-1.5 text-base font-normal text-gray-800 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+              placeholder='data Inicial'
+              name='auxInicial'
+              value={auxInicial} 
+              onChange={(e) => {setAuxInicial(e.target.value)}} 
+            />
+            <input
+              type='text'
+              className='px-3 py-1.5 text-base font-normal text-gray-800 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+              placeholder='data Final'
+              name='auxFinal'
+              value={auxFinal} 
+              onChange={(e) => {setAuxFinal(e.target.value)}} 
+            />
+          </div>
+          <button onClick={handleVencto}
+            className='ml-3 mt-5 mb-3 mr-3 inline-block px-6 py-2 border-2 border-green-600 text-green-600 hover:border-white hover:text-white font-medium text-xs leading-tight uppercase rounded-full hover:bg-green-600 '>        
+            Gerar Relatório
+          </button>
+        </div>
                                      
       </div>
     </div>

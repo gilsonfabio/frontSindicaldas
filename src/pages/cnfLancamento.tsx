@@ -40,7 +40,7 @@ const CnfLancamento = () => {
     const idCrt = router.query.nroCartao;
     const cnvId = router.query.convenio;
     const nomConvenio = router.query.nomFantasia;
-      
+
     const arr_alfa = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","U","V","W","X","Y","Z","!","@","$","%","&","*"];
      
     async function handleCnfLanc(e: any){
@@ -126,7 +126,7 @@ const CnfLancamento = () => {
           setStatusUsr(resp.data[0].usrStatus);
           setMaxParc(resp.data[0].tipParcelas);
           setContrato(resp.data[0].tipDescricao);
-      })
+      })      
     },[]);
 
     return (
