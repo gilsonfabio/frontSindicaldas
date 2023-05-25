@@ -9,7 +9,7 @@ const Footer = () => {
                         <span className='text-[16px] text-green-500 font-semibold'>CaldasCard</span>                        
                     </div> 
                     <div className="flex items-center justify-center">
-                        <span className='text-[12px] text-green-500 font-semibold'>Versão:1.06 - 02/03/2023</span>                        
+                        <span className='text-[12px] text-green-500 font-semibold'>Versão:1.07 - 25/05/2023</span>                        
                     </div>                    
                 </div>                    
             </div>
