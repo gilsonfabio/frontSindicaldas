@@ -124,9 +124,13 @@ const CnfLancamento = () => {
           setServidor(resp.data[0].usrId);
           setSaldo(resp.data[0].usrVlrDisponivel);
           setStatusUsr(resp.data[0].usrStatus);
-          setMaxParc(resp.data[0].tipParcelas);
           setContrato(resp.data[0].tipDescricao);
-      })      
+      })     
+      
+      api.get(`maxParcelas/${cnvId}`).then(res => {
+        setMaxParc(res.data[0].cnvQtdParc);
+      }) 
+      
     },[]);
 
     return (
@@ -159,6 +163,9 @@ const CnfLancamento = () => {
                           </div>
                           <div className='dados mb-4'>
                               <p className='text-green-500 text-[22px] font-bold ' >Saldo Disponivel: {Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(row.usrVlrDisponivel)}</p>
+                          </div>
+                          <div className='dados mb-4'>
+                            Máximo de Parcelas:{maxParc} 
                           </div>
                         </div>    
                       ))}                            
@@ -210,6 +217,18 @@ const CnfLancamento = () => {
                             <option value={10}>{'10 X PARCELAS'}</option>
                             <option value={11}>{'11 X PARCELAS'}</option>
                             <option value={12}>{'12 X PARCELAS'}</option>
+                            <option value={13}>{'13 X PARCELAS'}</option>
+                            <option value={14}>{'14 X PARCELAS'}</option>
+                            <option value={15}>{'15 X PARCELAS'}</option>
+                            <option value={16}>{'16 X PARCELAS'}</option>
+                            <option value={17}>{'17 X PARCELAS'}</option>
+                            <option value={18}>{'18 X PARCELAS'}</option>
+                            <option value={19}>{'19 X PARCELAS'}</option>
+                            <option value={20}>{'20 X PARCELAS'}</option>
+                            <option value={21}>{'21 X PARCELAS'}</option>
+                            <option value={22}>{'22 X PARCELAS'}</option>
+                            <option value={23}>{'23 X PARCELAS'}</option>
+                            <option value={24}>{'24 X PARCELAS'}</option>
                         </select> 
                       </div>         
                       <div className='mb-4'>
