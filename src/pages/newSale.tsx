@@ -16,8 +16,7 @@ const NewSale = () => {
         e.preventDefault();
         let conId = idCnv as any;
 
-        if (conId === 4) {
-          try {
+        try {
               const response = await api.get(`verifUser/${cartao}`);
               if(response.data.length === 0) {
                 const resp = await api.get(`gerSaldo/${cartao}`);
@@ -26,23 +25,9 @@ const NewSale = () => {
                 pathname: '/cnfLancamento',
                 query: { convenio: `${idCnv}`, nomFantasia: `${nomConvenio}`, nroCartao: `${cartao}`}
               })
-          } catch (err) {
+        } catch (err) {
               alert('Falha na busca de informações! Tente novamente.');
-          }
-        }else {
-          try {
-            const response = await api.get(`verifUser/${cartao}`);
-            if(response.data.length === 0) {
-              const resp = await api.get(`gerSaldo/${cartao}`);
-            }
-            Router.push({
-              pathname: '/cnfLancamento',
-              query: { convenio: `${idCnv}`, nomFantasia: `${nomConvenio}`, nroCartao: `${cartao}`}
-            })
-          } catch (err) {
-            alert('Falha na busca de informações! Tente novamente.');
-          }
-        }  
+        }       
     }   
     
     return (
