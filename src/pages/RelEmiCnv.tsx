@@ -24,6 +24,9 @@ const RelEmiCnv = () => {
     const [datInicial, setDatInicial] = useState(router.query.datIni);
     const [datFinal, setDatFinal] = useState(router.query.datFin);
 
+    const [datIniPrint, setIniPrint] = useState();
+    const [datFimPrint, setFimPrint] = useState();
+
     const [cnvNomFantasia, setCnvNomFantasia] = useState('');
     const [cnvId, setIdConvenio] = useState(router.query.id);
 
@@ -34,17 +37,26 @@ const RelEmiCnv = () => {
 
     const reportTitle = [
         {
-            text: `Relatório de Vendas por Emissão`,
+            text: `Relatório de Vendas por Emissão periodo de: ${datIniPrint} a ${datFimPrint}`,
             fontSize: 15,
             bold: true,
             margin: [15, 20, 0, 45],
         }       
     ] as any;
 
+    const subTitle = [
+        {
+            text: `Convênio: ${cnvNomFantasia}`,
+            fontSize: 10,
+            bold: true,
+            margin: [0, 5, 0, 5],
+        }       
+    ] as any;
+
     const dados = vendas.map((venda) => {
         return [
             {text: venda.cmpId, fontSize: 9, margin: [0, 2, 0, 2]},
-            {text: moment(venda.cmpEmissao).format('DD-MM-YYYY'), fontSize: 9, margin: [0, 2, 0, 2]},
+            {text: moment(venda.cmpEmissao).utc().locale('pt-br').format('L'), fontSize: 9, margin: [0, 2, 0, 2]},
             {text: venda.usrNome, fontSize: 9, margin: [0, 2, 0, 2]},
             {text: venda.cmpQtdParcela, fontSize: 9, margin: [0, 2, 0, 2]},
             {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.cmpVlrCompra), fontSize: 9, alignment: 'right', margin: [0, 2, 0, 2]}
@@ -89,18 +101,16 @@ const RelEmiCnv = () => {
         pageMargins: [15, 50, 15, 40],
     
         header: [reportTitle],
-        content: [details],
+        content: [subTitle, details],
         footer: Rodape,
     };
    
     useEffect(() => {
-
         console.log('Convênio: ',cnvId);
-
         api.get(`pdfEmiCmpCnv/${datInicial}/${datFinal}/${cnvId}`).then(resp => {
-            setVendas(resp.data);  
+            setVendas(resp.data);
+            setCnvNomFantasia(resp.data[0].cnvNomFantasia);  
         })
-
     },[]);
 
     function emitePdf() {

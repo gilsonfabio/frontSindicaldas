@@ -24,6 +24,7 @@ const RelEmiSer = () => {
 
     const [datInicial, setDatInicial] = useState(router.query.datIni);
     const [datFinal, setDatFinal] = useState(router.query.datFin);
+    const [nomServidor, setNomServidor] = useState('');
 
     //const [cnvNomFantasia, setCnvNomFantasia] = useState('');
     const [srvId, setIdServidor] = useState(router.query.id);
@@ -35,17 +36,26 @@ const RelEmiSer = () => {
 
     const reportTitle = [
         {
-            text: `Relatório de Vendas por Emissão`,
+            text: `Relatório de Vendas por Emissão - periodo de: ${datInicial} a ${datFinal}`,
             fontSize: 15,
             bold: true,
             margin: [15, 20, 0, 45],
         }       
     ] as any;
 
+    const subTitle = [
+        {
+            text: `Servidor(a): ${nomServidor}`,
+            fontSize: 10,
+            bold: true,
+            margin: [0, 5, 0, 5],
+        }       
+    ] as any;
+
     const dados = vendas.map((venda) => {
         return [
             {text: venda.cmpId, fontSize: 9, margin: [0, 2, 0, 2]},
-            {text: moment(venda.cmpEmissao).format('DD-MM-YYYY'), fontSize: 9, margin: [0, 2, 0, 2]},
+            {text: moment(venda.cmpEmissao).utc().locale('pt-br').format('L'), fontSize: 9, margin: [0, 2, 0, 2]},
             {text: venda.cnvNomFantasia, fontSize: 9, margin: [0, 2, 0, 2]},
             {text: venda.cmpQtdParcela, fontSize: 9, margin: [0, 2, 0, 2]},
             {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.cmpVlrCompra), fontSize: 9, alignment: 'right', margin: [0, 2, 0, 2]}
@@ -90,7 +100,7 @@ const RelEmiSer = () => {
         pageMargins: [15, 50, 15, 40],
     
         header: [reportTitle],
-        content: [details],
+        content: [subTitle, details],
         footer: Rodape,
     };
    
@@ -100,6 +110,7 @@ const RelEmiSer = () => {
 
         api.get(`pdfEmiCmpSrv/${datInicial}/${datFinal}/${srvId}`).then(resp => {
             setVendas(resp.data);  
+            setNomServidor(resp.data[0].srvNome);
         })
 
     },[]);
