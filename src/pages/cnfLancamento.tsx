@@ -60,7 +60,7 @@ const CnfLancamento = () => {
           console.log(vlrParcela);
 
           if (parseFloat(saldo) < vlrParcela ) {
-              alert('Falha na confirmação da compra! Codigo 55');
+              alert(`Falha na confirmação da compra! Codigo 55 - Vlr:${vlrParcela}`);
               Router.push({pathname: '/Dashboard'})
           }else {
               if (statusUsr != 'A') {
