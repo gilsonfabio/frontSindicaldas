@@ -34,6 +34,9 @@ const RelEmiCnv = () => {
     const [datInicial, setDatInicial] = useState(router.query.datIni);
     const [datFinal, setDatFinal] = useState(router.query.datFin);
 
+    const [dtInicio, setDtInicio] = useState('');
+    const [dtFinal, setDtFinal] = useState('');
+
     const [cnvNomFantasia, setCnvNomFantasia] = useState('');
     const [cnvId, setIdConvenio] = useState(router.query.id);
 
@@ -44,7 +47,7 @@ const RelEmiCnv = () => {
 
     const reportTitle = [
         {
-            text: `Relatório de Vendas por Vencimento periodo de:${datInicial} a ${datFinal}`,
+            text: `Relatório de Vendas por Vencimento periodo de:${dtInicio} a ${dtFinal}`,
             fontSize: 15,
             bold: true,
             margin: [15, 20, 0, 45],
@@ -63,7 +66,7 @@ const RelEmiCnv = () => {
     const dados = vendas.map((venda) => {
         return [
             {text: venda.cmpId, fontSize: 9, margin: [0, 2, 0, 2]},
-            {text: moment(venda.parVctParcela).utc().locale('pt-br').format('L'), fontSize: 9, margin: [0, 2, 0, 2]},
+            {text: moment(venda.parVctParcela).utc().locale('pt-br').format('DD-MM-YYYY'), fontSize: 9, margin: [0, 2, 0, 2]},
             {text: venda.usrNome, fontSize: 9, margin: [0, 2, 0, 2]},
             {text: venda.parNroParcela + '/' + venda.cmpQtdParcela, fontSize: 9, margin: [0, 2, 0, 2]},
             {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.parVlrParcela), fontSize: 9, alignment: 'right', margin: [0, 2, 0, 2]}
@@ -113,6 +116,9 @@ const RelEmiCnv = () => {
     };
    
     useEffect(() => {
+
+        setDtInicio(moment(datInicial).utc(true).locale('pt-br').format('DD-MM-YYYY'));
+        setDtFinal(moment(datFinal).utc(true).locale('pt-br').format('DD-MM-YYYY'));
 
         console.log('Convênio: ',cnvId);
 

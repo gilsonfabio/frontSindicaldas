@@ -22,10 +22,31 @@ interface vendasProps {
   cnvNomFantasia: string;
 }
 
+interface userProps {
+  usrId: number;
+  usrNome: string;
+  usrMatricula: number;
+  usrMes: number;
+  usrAno: number;
+  usrVlrDisponivel: number;
+  usrStatus: string;
+  tipId: number;
+  tipDescricao: string;
+  tipParcelas: number;
+}
+
 const Dashserv = () => {
     const [vendas, setVendas] = useState<Array<vendasProps>>([]);
     const [auxInicial, setAuxInicial] = useState('');
     const [auxFinal, setAuxFinal] = useState('');
+
+    const [nroCartao, setNroCartao] = useState('');
+    const [user, setUser] = useState<Array<userProps>>([]);
+    const [servidor, setServidor] = useState('');
+    const [saldo, setSaldo] = useState('');
+    const [statusUsr, setStatusUsr] = useState('');
+    const [contrato, setContrato] = useState('');
+    const [maxParc, setMaxParc] = useState('');
 
     const router = useRouter();
     const [idSrv, setIdVenda] = useState(router.query.id);
@@ -36,7 +57,17 @@ const Dashserv = () => {
       setIdVenda(id);
       api.get(`/cmpServidor/${idSrv}`).then(response => {
         setVendas(response.data);
-        
+        setNroCartao(response.data[0].usrCartao);
+        let cartao = nroCartao;        
+        api.get(`findUser/${cartao}`).then(resp => {
+          setUser(resp.data);
+          setServidor(resp.data[0].usrId);
+          setSaldo(resp.data[0].usrVlrDisponivel);
+          setStatusUsr(resp.data[0].usrStatus);
+          setContrato(resp.data[0].tipDescricao);
+        })     
+      }).catch(err => {
+        alert(`Não encontrou compras nesse periodo! Tente novamente.`);
       })    
     }, [])
 
@@ -74,7 +105,32 @@ const Dashserv = () => {
                 </span>
                 
             </div>
-            <div className="p-2 grid grid-cols-1 gap-1 md:grid-cols-5 md:gap-2 ">  
+            <div>
+              <div>
+                {user.map((row) => (
+                  <div key={row.usrId}>
+                    <div className='dados mb-4'>
+                      Nome:{row.usrNome} 
+                    </div>
+                    <div className='dados mb-4'>
+                      Matricula:{row.usrMatricula} 
+                    </div>
+                    <div className='dados mb-4'>
+                      Contrato:{row.tipDescricao} - {row.usrStatus} 
+                    </div>
+                    <div className='dados mb-4'>
+                      Mes/Ano Saldo:{row.usrMes} / {row.usrAno} 
+                    </div>
+                    <div className='dados mb-4'>
+                      <p className='text-green-500 text-[22px] font-bold ' >Saldo Disponivel: {Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(row.usrVlrDisponivel)}</p>
+                    </div>
+                    <div className='dados mb-4'>
+                      Máximo de Parcelas:{maxParc} 
+                    </div>
+                  </div>    
+                ))}                     
+              </div>
+              <div className="p-2 grid grid-cols-1 gap-1 md:grid-cols-5 md:gap-2 ">  
                 {vendas.map((row) => (
                     <Link key={row.cmpId} href={`/cmpDetalhes/${row.cmpId}`}>
                         <a className="bg-[#d7dddc]/20 rounded overflow-hidden shadow-lg mb-1 hover:bg-[#b5b9b9]/40" > 
@@ -107,7 +163,8 @@ const Dashserv = () => {
                         </a>                     
                     </Link>                               
                 ))}
-            </div>
+              </div>
+            </div>  
         </div>
       </div>
       <div className="p-2 grid grid-cols-1 gap-1 md:grid-cols-3 md:gap-2 mt-6">  
