@@ -50,24 +50,30 @@ const Dashserv = () => {
 
     const router = useRouter();
     const [idSrv, setIdVenda] = useState(router.query.id);
-    const [name, setName] = useState(router.query.name);
-    const {query: { id }, } = router
+    const [nome, setNome] = useState(router.query.name);
+    const [carServ, setCarServ] = useState(router.query.cartao);
+
+    const {query: { id, name, cartao }, } = router
 
     useEffect(() => {   
       setIdVenda(id);
+
+      api.get(`dadServ/${carServ}`).then(resp => {
+        setUser(resp.data);
+      }) 
+
       api.get(`/cmpServidor/${idSrv}`).then(response => {
         setVendas(response.data);
         setNroCartao(response.data[0].usrCartao);
         let cartao = nroCartao;        
         api.get(`findUser/${cartao}`).then(resp => {
-          setUser(resp.data);
           setServidor(resp.data[0].usrId);
           setSaldo(resp.data[0].usrVlrDisponivel);
           setStatusUsr(resp.data[0].usrStatus);
           setContrato(resp.data[0].tipDescricao);
         })     
       }).catch(err => {
-        alert(`Não encontrou compras nesse periodo! Tente novamente.`);
+        alert(`Não encontrou compras nesse periodo! Tente novamente.`);                    
       })    
     }, [])
 
@@ -101,32 +107,28 @@ const Dashserv = () => {
       <div className="mb-3">
             <div className="flex flex-row justify-center items-center ">
                 <span className="flex flex-row justify-center items-center text-3xl font-bold text-green-600 mt-6 mb-6" >
-                    Últimas Compras {idSrv}
-                </span>
-                
+                    Últimas Compras {idSrv} - {nome} - {carServ}
+                </span>                
             </div>
-            <div>
+            <div className='flex flex-row w-full h-full ml-5'>
               <div>
                 {user.map((row) => (
                   <div key={row.usrId}>
-                    <div className='dados mb-4'>
+                    <div className='text-xl font-semibold mb-4'>
                       Nome:{row.usrNome} 
                     </div>
-                    <div className='dados mb-4'>
+                    <div className='text-xl font-semibold mb-4'>
                       Matricula:{row.usrMatricula} 
                     </div>
-                    <div className='dados mb-4'>
-                      Contrato:{row.tipDescricao} - {row.usrStatus} 
+                    <div className='text-xl font-semibold mb-4'>
+                      Status:{row.usrStatus} 
                     </div>
-                    <div className='dados mb-4'>
+                    <div className='text-xl font-semibold mb-4'>
                       Mes/Ano Saldo:{row.usrMes} / {row.usrAno} 
                     </div>
-                    <div className='dados mb-4'>
+                    <div className='text-xl font-semibold mb-4'>
                       <p className='text-green-500 text-[22px] font-bold ' >Saldo Disponivel: {Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(row.usrVlrDisponivel)}</p>
-                    </div>
-                    <div className='dados mb-4'>
-                      Máximo de Parcelas:{maxParc} 
-                    </div>
+                    </div>                                      
                   </div>    
                 ))}                     
               </div>

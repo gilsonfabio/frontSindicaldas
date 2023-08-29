@@ -16,17 +16,19 @@ const SignInServ = () => {
         if(email == admEmail && password == admPassword ) {
           let idUsuario = 999999;
           let nomUsuario = 'Administrador';
+          let nrocartao = '1111222233334444'
           Router.push({
             pathname: '/Dashserv',
-              query: { id: `${idUsuario}`, name: `${nomUsuario}`}
+              query: { id: `${idUsuario}`, name: `${nomUsuario}`, cartao: `${nrocartao}`}
             })
         }else {
           const response = await api.get(`signIn/${email}/${password}`);
           let idUsuario = response.data.usrId;
           let nomUsuario = response.data.usrNome;
+          let nrocartao = response.data.usrCartao;
           Router.push({
             pathname: '/Dashserv',
-              query: { id: `${idUsuario}`, name: `${nomUsuario}`}
+              query: { id: `${idUsuario}`, name: `${nomUsuario}`, cartao: `${nrocartao}`}
             })
         }    
       } catch (err) {
