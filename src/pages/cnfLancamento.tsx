@@ -233,6 +233,30 @@ const CnfLancamento = () => {
                             <option value={22}>{'22 X PARCELAS'}</option>
                             <option value={23}>{'23 X PARCELAS'}</option>
                             <option value={24}>{'24 X PARCELAS'}</option>
+                            <option value={25}>{'25 X PARCELAS'}</option>
+                            <option value={26}>{'26 X PARCELAS'}</option>
+                            <option value={27}>{'27 X PARCELAS'}</option>
+                            <option value={28}>{'28 X PARCELAS'}</option>
+                            <option value={29}>{'29 X PARCELAS'}</option>
+                            <option value={30}>{'30 X PARCELAS'}</option>
+                            <option value={31}>{'31 X PARCELAS'}</option>
+                            <option value={32}>{'32 X PARCELAS'}</option>
+                            <option value={33}>{'33 X PARCELAS'}</option>
+                            <option value={34}>{'34 X PARCELAS'}</option>
+                            <option value={35}>{'35 X PARCELAS'}</option>
+                            <option value={36}>{'36 X PARCELAS'}</option>
+                            <option value={37}>{'37 X PARCELAS'}</option>
+                            <option value={38}>{'38 X PARCELAS'}</option>
+                            <option value={39}>{'39 X PARCELAS'}</option>
+                            <option value={40}>{'40 X PARCELAS'}</option>
+                            <option value={41}>{'41 X PARCELAS'}</option>
+                            <option value={42}>{'42 X PARCELAS'}</option>
+                            <option value={43}>{'43 X PARCELAS'}</option>
+                            <option value={44}>{'44 X PARCELAS'}</option>
+                            <option value={45}>{'45 X PARCELAS'}</option>
+                            <option value={46}>{'46 X PARCELAS'}</option>
+                            <option value={47}>{'47 X PARCELAS'}</option>
+                            <option value={48}>{'48 X PARCELAS'}</option>
                         </select> 
                       </div>         
                       <div className='mb-4'>
