@@ -21,7 +21,7 @@ interface userProps {
   tipDescricao: string;
   tipParcelas: number;
 }
-1234
+
 const CnfLancamento = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,7 +35,7 @@ const CnfLancamento = () => {
     const [statusUsr, setStatusUsr] = useState('');
     const [contrato, setContrato] = useState('');
     const [maxParc, setMaxParc] = useState('');
-
+    
     const router = useRouter();
     const idCrt = router.query.nroCartao;
     const cnvId = router.query.convenio;
@@ -48,74 +48,86 @@ const CnfLancamento = () => {
       try {
           let cartao = router.query.nroCartao;
           console.log(cartao);
-          console.log(password);
           const response = await api.get(`loginUsr/${cartao}/${password}`);
-          //console.log(parseFloat(saldo));
-          //console.log(parseFloat(vlrCompra));
-          //console.log(statusUsr);
-          console.log(response.data);
-
+              //console.log(parseFloat(saldo));
+              //console.log(parseFloat(vlrCompra));
+              //console.log(statusUsr);
+             //console.log(response.data);
+              
           let vlrParcela = parseFloat('0.00');
           vlrParcela = parseFloat(vlrCompra) / parseInt(qtdParcelas);
           console.log(vlrParcela);
-
+              
           if (parseFloat(saldo) < vlrParcela ) {
-              alert(`Falha na confirmação da compra! Codigo 55 - Vlr:${vlrParcela}`);
-              Router.push({pathname: '/Dashboard'})
+            alert(`Falha na confirmação da compra! Codigo 55 - Vlr:${vlrParcela}`);
+            Router.push({pathname: '/'})
           }else {
-              if (statusUsr != 'A') {
-                  alert('Falha na confirmação da compra! Codigo 54');
-                  Router.push({pathname: '/'})
+            if (statusUsr != 'A') {
+              alert('Falha na confirmação da compra! Codigo 54');
+              Router.push({pathname: '/'})
+            }else {
+              if (maxParc < qtdParcelas){
+                alert('Falha na confirmação da compra! Codigo 56');
+                Router.push({pathname: '/'})
               }else {
-                  if (maxParc < qtdParcelas){
-                      alert('Falha na confirmação da compra! Codigo 56');
-                      Router.push({pathname: '/'})
+                let data = new Date();
+                let dia = data.getDate();
+                let mes = data.getMonth() + 1;
+                let ano = data.getFullYear();
+                let dataString = '';
+                if (mes < 10 && dia < 10) {
+                  dataString = ano + '-' + '0' + mes + '-' + '0' + dia;
+                }else {
+                  if (mes < 10 && dia > 9) {
+                    dataString = ano + '-' + '0' + mes + '-' + dia;
                   }else {
-                      let data = new Date();
-                      var dia = data.getDate();
-                      var mes = data.getMonth() + 1;
-                      var ano = data.getFullYear();
-                      var dataString = ano + '-' + mes + '-' + dia;
-                      var dataAtual = dataString;
-      
-                      var hor = data.getHours();
-                      var min = data.getMinutes();
-                      var seg = data.getSeconds();
-                      var horaString = hor + ':' + min + ':' + seg;
-                      var horaAtual = horaString;
-      
-                      var priLetra = arr_alfa[dia];
-                      var segLetra = arr_alfa[hor];
-                      var codSeguranca = priLetra + segLetra + ano + cnvId + min + seg;
-                  
-                      var taxAdmin = 3;
-                      var statusCmp = 'A';
-      
-                      api.post('newcompra', {
-                          cmpEmissao: dataAtual, 
-                          cmpHorEmissao: horaAtual, 
-                          cmpConvenio: cnvId, 
-                          cmpQtdParcela: parseInt(qtdParcelas), 
-                          cmpVlrCompra: parseFloat(vlrCompra), 
-                          cmpServidor: servidor, 
-                          cmpCodSeguranca: codSeguranca, 
-                          cmpStatus: statusCmp,
-                          cmpCartao: cartao      
-                      }).then(() => {
-                          alert('Compra cadastrada com sucesso!')
-                      }).catch(() => {
-                          alert('Erro no cadastro!');
-                      })  
-                      Router.push({
-                          pathname: '/Dashboard',
-                          query: { id: `${cnvId}`, name: `${nomConvenio}`}
-                      });
-                  }    
-              }
-          }
-      } catch (err) {
-          alert('Falha na confirmação da compra!');
-      }  
+                    if (mes > 9 && dia < 10 ) {
+                      dataString = ano + '-' + mes + '-' + '0'+ dia;
+                    }else {
+                      dataString = ano + '-' + mes + '-' + dia;
+                    } 
+                  }   
+                }                     
+                var dataAtual = dataString;
+                var hor = data.getHours();
+                var min = data.getMinutes();
+                var seg = data.getSeconds();
+                var horaString = hor + ':' + min + ':' + seg;
+                var horaAtual = horaString;
+         
+                var priLetra = arr_alfa[dia];
+                var segLetra = arr_alfa[hor];
+                var codSeguranca = priLetra + segLetra + ano + cnvId + min + seg;
+                     
+                var taxAdmin = 3;
+                var statusCmp = 'A';
+         
+                await api.post('newcompra', {
+                  cmpEmissao: dataAtual, 
+                  cmpHorEmissao: horaAtual, 
+                  cmpConvenio: cnvId, 
+                  cmpQtdParcela: parseInt(qtdParcelas), 
+                  cmpVlrCompra: parseFloat(vlrCompra), 
+                  cmpServidor: servidor, 
+                  cmpCodSeguranca: codSeguranca, 
+                  cmpStatus: statusCmp,
+                  cmpCartao: cartao      
+                }).then(() => {
+                  if (response.status === 200) {
+                    alert('Compra cadastrada com sucesso!')
+                  }else {
+                    alert(`Error data: ${response.status}`)
+                  }  
+                }).catch(() => {
+                  alert(`Erro, dados em duplicidade. Favor verificar! ${response.status}`);                  
+                })  
+                Router.push({pathname: '/'});
+              }    
+            }
+          }               
+      }catch (err) {
+       alert('Falha na confirmação da compra!');
+      }                
     }
 
     useEffect(() => {
